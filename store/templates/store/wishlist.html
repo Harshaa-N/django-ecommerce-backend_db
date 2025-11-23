@@ -1,0 +1,93 @@
+{% load static %} <link rel="stylesheet" href="{% static 'style.css' %}">
+<!--
+<h1>My Wishlist</h1>
+<ul>
+  {% for product in wishlisted_products %}
+    <li>
+      {{ product.title }} |
+      <a href="{% url 'remove-from-wishlist' product.id %}">Remove</a>
+    </li>
+  {% empty %}
+    <li>Your wishlist is empty.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'product-list' %}">Back to products</a>
+-->
+<!-- Place CSS here or load it as a static file -->
+<a href="{% url 'product-list' %}" style="
+  position: absolute;
+  top: 2em;
+  left: 2em;
+  background: #1976d2;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.7em 1.6em;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1em;
+  box-shadow: 0 3px 10px 0 #e2e2e2;
+  border: none;
+  display:inline-block;
+">← Back to products</a>
+
+<h1 style="color:#1976d2; border-bottom:2px solid #dde3ea; margin:2em 0 1.4em 0; text-align: center;">
+  My Wishlist
+</h1>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap:2em;">
+  {% for product in wishlisted_products %}
+    <div style="
+      background: #fff;
+      border-radius: 13px;
+      box-shadow: 0 6px 32px #e9eef2;
+      border: 1.5px solid #cfd8dc;
+      width: 270px;
+      padding: 1.4em 1em 1.2em 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2em;
+      ">
+      {% if product.images.first %}
+        <img src="{{ product.images.first.image.url }}"
+             alt="{{ product.title }}"
+             style="height:110px;width:auto;object-fit:cover;
+                    border-radius:8px;border:1.2px solid #dadada;margin-bottom:0.85em;">
+      {% else %}
+        <div style="height:110px; width:110px; background:#eee; display:flex; align-items:center; justify-content:center; color:#888; margin-bottom: 0.85em; border-radius:8px; font-size:1.1em;">No Image</div>
+      {% endif %}
+      <div style="font-size:1.13em; color:#178880; font-weight: 700; text-align: center; min-height:40px; margin-bottom:0.75em;">
+        {{ product.title }}
+      </div>
+      <form action="{% url 'remove-from-wishlist' product.id %}" method="get" style="width:100%; margin:0;">
+        <button type="submit"
+                style="width:100%; background:#ef476f; color:#fff; border:none;
+                       border-radius:7px; padding:0.68em 0; font-weight: 600; 
+                       font-size:1.07em; margin-top:auto; letter-spacing: 1px;">
+          ✕ Remove from Wishlist
+        </button>
+      </form>
+    </div>
+  {% empty %}
+
+    <div style="margin:4em auto 0 auto; text-align:center; color:#888;">
+      <div style="font-size:3.2em; color:#ffa6c5; margin-bottom:0.3em;">&#9825;</div>
+      <div style="background:#fff7fb; border-radius:16px; display:inline-block; padding:2.1em 3em 1.5em 3em; border:1.8px solid #ffdde4; box-shadow:0 4px 16px #f8e0e9;">
+        <div style="font-size:1.28em; font-weight:600; color:#e63946; margin:0 0 0.6em 0;">
+          Your wishlist is empty!
+        </div>
+        <div style="font-size:1.05em; color:#3d424f; margin-bottom:1.1em;">
+          Start exploring and add products you love.
+        </div>
+        <a href="{% url 'product-list' %}"
+           style="background:#1976d2; color:#fff; text-decoration:none; border-radius:8px;
+                  font-size:1.09em; padding:0.8em 2.3em; font-weight:600;">
+          Shop Now
+        </a>
+      </div>
+    </div>
+
+  {% endfor %}
+</div>
+
+

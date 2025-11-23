@@ -1,0 +1,90 @@
+<!--{% load static %} <link rel="stylesheet" href="{% static 'style.css' %}">
+
+<h1>Product List</h1>
+<form method="get">
+  <select name="category">
+    <option value="">All Categories</option>
+    {% for category in categories %}
+      <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+        {{ category.name }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filter</button>
+</form>
+<ul>
+  {% for product in products %}
+    <li>
+      <a href="{% url 'product-detail' product.id %}">{{ product.title }}</a> - {{ product.price }}
+      <a href="{% url 'cart-add' product.id %}">Add to cart</a>
+     
+      <a href="{% url 'add-to-wishlist' product.id %}">Add to wishlist</a>
+      <a href="{% url 'remove-from-wishlist' product.id %}">Remove from wishlist</a>
+    </li>
+  {% endfor %}
+</ul>
+<div>
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">Previous</a>
+  {% endif %}
+  <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">Next</a>
+  {% endif %}
+</div>
+-->
+<!-- Place CSS here or load it as a static file -->
+<h1 style="color:#264653; border-bottom:2px solid #ddd; margin:1em 0 0.7em 0; text-align: center;">Product List</h1>
+<form method="get" style="margin: 0 auto 2em auto; display: flex; gap: 0.6em; justify-content: center;">
+  <select name="category" style="padding:0.5em; border-radius:4px; border:1px solid #ccc;">
+    <option value="">All Categories</option>
+    {% for category in categories %}
+      <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+        {{ category.name }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit" style="background:#2a9d8f; color:#fff; border:none; border-radius:3px; padding:0.5em 1em;">Filter</button>
+</form>
+
+<div style="display:flex; flex-wrap:wrap; justify-content: center; gap:2em;">
+  {% for product in products %}
+    <div style="background:#fff; border:1.5px solid #cfd8dc; border-radius:16px; width:275px; padding:1.2em 1.2em 1.5em 1.2em; box-shadow:0 4px 20px 0 #dee2e6; display:flex; flex-direction:column; align-items:center; margin-bottom:1.5em;">
+
+      {% if product.images.first %}
+        <img src="{{ product.images.first.image.url }}" alt="{{ product.title }}" style="height:125px; width:auto; object-fit:cover; margin-bottom: 0.9em; border-radius:10px; border:1.5px solid #dadada;">
+      {% else %}
+        <div style="height:125px; width:125px; background:#eee; display:flex; align-items:center; justify-content:center; color:#888; margin-bottom: 0.9em; border-radius:10px; font-size:1.2em;">No Image</div>
+      {% endif %}
+
+      <div style="font-size:1.13em; color:#178880; font-weight:700; text-align:center; min-height:44px; margin-bottom:0.3em;">{{ product.title }}</div>
+      <div style="font-size:1.17em; color:#1976d2; font-weight:600; margin-bottom:1em;">₹{{ product.price }}</div>
+
+      <div style="display: flex; flex-direction:column; width:100%; gap:0.6em;">
+        <form action="{% url 'cart-add' product.id %}" method="get" style="margin:0; width:100%;">
+          <button type="submit" style="width:100%; background: #1976d2; color:#fff; font-weight: 600; border:none; border-radius:7px; padding:0.75em 0; font-size:1.05em;">Add to Cart</button>
+        </form>
+        <form action="{% url 'add-to-wishlist' product.id %}" method="get" style="margin:0; width:100%;">
+          <button type="submit" style="width:100%; background: #fff7e6; color: #ff8800; font-weight: 600; border:1.5px solid #ffd166; border-radius:7px; padding:0.75em 0; font-size:1.05em;">★ Add to Wishlist</button>
+        </form>
+        <form action="{% url 'remove-from-wishlist' product.id %}" method="get" style="margin:0; width:100%;">
+          <button type="submit" style="width:100%; background: #fff3f5; color: #e63946; font-weight: 600; border:1.5px solid #ef476f; border-radius:7px; padding:0.75em 0; font-size:1.05em;">✕ Remove from Wishlist</button>
+        </form>
+      </div>
+      <a href="{% url 'product-detail' product.id %}" style="margin-top:0.85em; color:#2a9d8f; font-weight:500; text-decoration:underline; font-size:0.97em; display:block;">View Details</a>
+    </div>
+  {% endfor %}
+</div>
+
+<div style="margin-top:2em; display:flex; align-items:center; gap:1em; justify-content: center;">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+       style="background:#2a9d8f; color:#fff; border-radius:3px; padding:0.48em 1.2em; text-decoration:none;">Previous</a>
+  {% endif %}
+  <span style="font-size:1.13em;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+       style="background:#2a9d8f; color:#fff; border-radius:3px; padding:0.48em 1.2em; text-decoration:none;">Next</a>
+  {% endif %}
+</div>
+

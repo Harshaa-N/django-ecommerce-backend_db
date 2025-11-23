@@ -1,0 +1,71 @@
+{% load static %} <link rel="stylesheet" href="{% static 'style.css' %}">
+<!--
+<h1>Your Cart</h1>
+<table>
+  <tr><th>Product</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr>
+  {% for item in cart_items %}
+    <tr>
+      <td>{{ item.product.title }}</td>
+      <td>
+        <form action="{% url 'cart-update' item.id %}" method="post">
+          {% csrf_token %}
+          <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+          <button type="submit">Update</button>
+        </form>
+      </td>
+      <td>{{ item.subtotal }}</td>
+      <td>
+        <a href="{% url 'cart-remove' item.id %}">Remove</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+<p>Total: {{ total }}</p>
+
+-->
+<h1 style="color:#264653; border-bottom:2px solid #ddd; margin:1.3em 0 1em 0; text-align:center;">Your Cart</h1>
+
+<div style="display: flex; justify-content: center; align-items: flex-start; min-height: 60vh;">
+  <div style="background:#fff; box-shadow:0 4px 20px #e0e8ee; border-radius:14px; padding:2.2em 2.2em 1.6em 2.2em; max-width:660px; width:100%;">
+    {% if cart_items %}
+      <table style="border-collapse:collapse; width:100%; margin: 0 0 1em 0;">
+        <tr>
+          <th style="background:#f6f6f6; font-size:1.07em; color:#264653; padding:0.7em 0.7em;">Product</th>
+          <th style="background:#f6f6f6; font-size:1.07em; color:#264653;">Quantity</th>
+          <th style="background:#f6f6f6; font-size:1.07em; color:#264653;">Subtotal</th>
+          <th style="background:#f6f6f6; font-size:1.07em; color:#264653;">Action</th>
+        </tr>
+        {% for item in cart_items %}
+          <tr style="border-bottom:1.5px solid #ecf0f4;">
+            <td style="padding:0.9em 0.7em; text-align:center; color:#1976d2; font-weight:600;">{{ item.product.title }}</td>
+            <td style="text-align:center;">
+              <form action="{% url 'cart-update' item.id %}" method="post" style="display:flex; align-items:center; justify-content:center; gap:0.5em; margin:0;">
+                {% csrf_token %}
+                <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
+                       style="width:3em; border-radius:7px; border:1.5px solid #ddd; text-align:center; padding:0.4em 0;">
+                <button type="submit"
+                        style="background:#ffd166; color:#222; border:none; border-radius:7px; padding:0.45em 1.2em; font-weight: 600; font-size:1em;">
+                  Update
+                </button>
+              </form>
+            </td>
+            <td style="text-align:center; color:#178880; font-size:1.09em; font-weight:500;">₹{{ item.subtotal }}</td>
+            <td style="text-align:center;">
+              <a href="{% url 'cart-remove' item.id %}"
+                 style="background:#ef476f; color:#fff; border-radius:7px; padding:0.45em 1.35em; font-weight: 600; text-decoration:none; font-size:1em;">
+                Remove
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <p style="font-size:1.25em; text-align:right; color:#1976d2; margin-top: 0.2em;"><strong>Total: ₹{{ total }}</strong></p>
+      <div style="text-align:right;">
+        <a href="{% url 'checkout' %}"
+           style="background:#1f7a63; color:#fff; border-radius:7px; padding:0.68em 2.2em; font-weight: 600; text-decoration:none; font-size:1.09em;">Proceed to Checkout</a>
+      </div>
+    {% else %}
+      <p style="text-align:center; font-size:1.18em; color:#666; margin:2.5em 0 2.6em 0;">Your cart is empty.</p>
+    {% endif %}
+  </div>
+</div>

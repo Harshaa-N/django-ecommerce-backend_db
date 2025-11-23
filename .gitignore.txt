@@ -1,0 +1,16 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+
+# Ignore SQLite database file
+db.sqlite3
+
+# Ignore media/uploads, if any
+/media/
+ 
+# Ignore environment settings (optional)
+.env
+
+# Ignore VSCode or PyCharm files
+.vscode/
+.idea/

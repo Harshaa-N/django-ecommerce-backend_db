@@ -1,0 +1,84 @@
+{% load static %} <link rel="stylesheet" href="{% static 'style.css' %}">
+<!--
+<h1>{{ product.title }}</h1>
+<p>{{ product.description }}</p>
+<p>Price: {{ product.price }}</p>
+
+
+<a href="{% url 'cart-add' product.id %}">Add to cart</a>
+
+<a href="{% url 'add-to-wishlist' product.id %}">Add to wishlist</a>
+<a href="{% url 'remove-from-wishlist' product.id %}">Remove from wishlist</a>
+
+<ul>
+  {% for image in images %}
+    <li><img src="{{ image.image.url }}" height="100" /></li>
+  {% endfor %}
+</ul>
+<a href="{% url 'product-list' %}">Back to list</a>
+-->
+<!-- Place CSS here or load it as a static file -->
+<!-- Product Detail Template with Only Inline CSS -->
+
+<a href="{% url 'product-list' %}" style="
+  position: absolute;
+  top: 2em;
+  left: 2em;
+  background: #f0f0f0;
+  color: #264653;
+  text-decoration: none;
+  padding: 0.5em 1.2em;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 3px 10px 0 #e2e2e2;
+  border:1px solid #e0e0e0;
+  font-size: 1em;
+">← Back to list</a>
+
+<div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background: #f4f8fb;
+">
+  <div style="
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 32px #d9e7ef;
+    padding: 2.2em 2.2em 2em 2.2em;
+    max-width: 420px;
+    text-align: center;
+    width: 100%;
+    margin-top: 2em;
+    border: 1.5px solid #cfd8dc;
+  ">
+    <h1 style="font-size:2.1em; color: #1a7c7b; margin-bottom: 0.35em; margin-top:0;">{{ product.title }}</h1>
+    <p style="margin-bottom: 1.1em; color:#345;">{{ product.description }}</p>
+    {% if images %}
+      <img src="{{ images.0.image.url }}" style="
+        height: 180px; 
+        width: auto; 
+        object-fit: cover; 
+        border-radius: 9px; 
+        border:2px solid #dadada;
+        margin-bottom: 1em;" 
+      alt="{{ product.title }}">
+    {% else %}
+      <div style="height:180px; width:180px; background:#dde6eb; display:flex; align-items:center; justify-content:center; color:#789;">No Image</div>
+    {% endif %}
+    <div style="font-size:1.35em; font-weight:600; color:#1976d2; margin: 12px 0 18px 0;">₹{{ product.price }}</div>
+    <div style="display: flex; flex-direction:column; align-items:center; gap:0.8em;">
+      <form action="{% url 'cart-add' product.id %}" method="get" style="margin:0; width:100%;">
+        <button type="submit" style="width:100%; background: #1976d2; color:#fff; font-weight: 600; border:none; border-radius:5px; padding:0.68em 0; font-size:1.08em;">Add to Cart</button>
+      </form>
+      <form action="{% url 'add-to-wishlist' product.id %}" method="get" style="margin:0; width:100%;">
+        <button type="submit" style="width:100%; background: #fff7e6; color:#ff8800; font-weight: 600; border: 1.5px solid #ffd166; border-radius:5px; padding:0.68em 0; font-size:1.08em;">★ Add to Wishlist</button>
+      </form>
+      <form action="{% url 'remove-from-wishlist' product.id %}" method="get" style="margin:0; width:100%;">
+        <button type="submit" style="width:100%; background: #fff3f5; color:#e63946; font-weight: 600; border: 1.5px solid #ef476f; border-radius:5px; padding:0.68em 0; font-size:1.08em;">✕ Remove from Wishlist</button>
+      </form>
+    </div>
+  </div>
+</div>
+

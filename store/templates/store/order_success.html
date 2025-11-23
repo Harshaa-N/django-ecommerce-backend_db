@@ -1,0 +1,19 @@
+{% load static %} <link rel="stylesheet" href="{% static 'style.css' %}">
+<!--
+<h1>Order Placed Successfully!</h1>
+<p>Your order has been submitted.</p>
+<a href="{% url 'product-list' %}">Continue shopping</a>
+-->
+
+<div style="display:flex; justify-content:center; align-items:center; min-height:80vh; background:#f3f7fa;">
+  <div style="background:#fff; padding:2.5em 2em 2.1em 2em; border-radius:18px; box-shadow:0 6px 24px #dde7ef; max-width:380px; text-align:center; border:1.4px solid #e2e8ee;">
+    <div style="font-size:3.5em; color:#38b000; margin-bottom:0.25em;">&#10004;</div>
+    <h1 style="font-size:1.5em; color:#1976d2; margin-bottom:0.8em; margin-top:0;">Order Placed Successfully!</h1>
+    <p style="font-size:1.11em; color:#455a64; margin-bottom:2.1em;">Your order has been submitted. Thank you for shopping with us!</p>
+    <a href="{% url 'product-list' %}" 
+       style="display:inline-block; background:#1976d2; color:#fff; text-decoration:none; border-radius:8px; font-size:1.1em; padding:0.75em 2.2em; font-weight:600;">
+      Continue shopping
+    </a>
+  </div>
+</div>
+
